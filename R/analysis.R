@@ -51,7 +51,7 @@ preprocess_16s_data <- function(input_fastq_files, output_files, verbose = FALSE
 }
 
 
-create_abundance_table <- function(dada_out) {
+create_abundance_table <- function(filt) {
   # Create a sequence table
   seq_table <- makeSequenceTable(filt)
 
@@ -77,15 +77,14 @@ create_heatmap <- function(table) {
 
 #===== Examples for Vignettes ========
 sample_data_path <- file.path(current_dir, "data/sample_raw_16S_data")
+sample_output_path <- file.path(current_dir, "data/filtered_reads")
+
 sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
 sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
-sample_output_path <- file.path(current_dir, "data/filtered_reads")
 sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
 names(sample_output) <- sample_data.names
 
-single_entry <- file.path(current_dir, "data/sample_raw_16S_data/HSM5MD4R_P.fastq")
-single_entry_output <- file.path(current_dir, "data/filtered_reads/HSM5MD4R_filt.fastq.gz")
-table <- preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+dada_output <- preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
 out
 print(table)
 makeSequenceTable(output_files)
