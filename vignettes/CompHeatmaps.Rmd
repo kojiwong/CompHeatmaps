@@ -1,0 +1,46 @@
+---
+title: "CompHeatmaps"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{CompHeatmaps}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#===== Examples for Vignettes ========
+library(CompHeatmaps)
+
+# Format our data to put into the functions
+current_dir <- getwd()
+sample_data_path <- file.path(current_dir, "data/sample_raw_16S_data")
+sample_output_path <- file.path(current_dir, "data/filtered_reads")
+
+sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
+sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
+sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
+sample_output
+names(sample_output) <- sample_data.names
+
+# Running this step will take a couple of minutes to run, we are processing millions of
+# sequencing reads. If your CPU has multiple cores, you can try setting `multithread = TRUE`
+# in the parameters. 
+dada_output <- preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+
+# Make a sequence table
+seq_table <- create_abundance_table(dada_output)
+rownames(seq_table) <- sample_data.names
+seq_table
+# View the dimensions, we will have 1 row for each sample and 1 column for each unique read
+dim(seq_table)
+
+# Finally, plot our data
+create_heatmap(seq_table)
+```
