@@ -4,23 +4,23 @@ BiocManager::version()
 BiocManager::install("phyloseq")
 BiocManager::install("dada2")
 BiocManager::install("ShortRead")
-BiocManager::install("ComplexHeatmap")
-install.packages("pheatmap")
+# BiocManager::install("ComplexHeatmap")
+# install.packages("pheatmap")
 install.packages("here")
 install.packages(c("circlize", "ComplexUpset"))
+install.packages("gplots")
 
 # Package developing tools
 library("devtools")
 library("usethis")
 
 # Packages used by library
-library("DESeq2")
 library("circlize")
 library("ComplexUpset")
 library("here")
 library("dada2")
 library("phyloseq")
-library("pheatmap")
+# library("pheatmap")
 library("ShortRead")
 library("gplots")
 
@@ -131,44 +131,42 @@ create_heatmap <- function(table) {
 }
 
 
-#===== Examples for Vignettes ========
-library(CompHeatmaps)
+# #===== Examples for Vignettes ========
+# current_dir <- getwd()
+# sample_data_path <- file.path(current_dir, "data/sample_raw_16S_data")
+# sample_output_path <- file.path(current_dir, "data/filtered_reads")
 
-current_dir <- getwd()
-sample_data_path <- file.path(current_dir, "data/sample_raw_16S_data")
-sample_output_path <- file.path(current_dir, "data/filtered_reads")
+# sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
+# sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
+# sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
+# sample_output
+# names(sample_output) <- sample_data.names
+# dada_output <- preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+# dada_output
 
-sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
-sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
-sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
-sample_output
-names(sample_output) <- sample_data.names
-dada_output <- preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
-dada_output
+# # Make a sequence table
+# seq_table <- create_abundance_table(dada_output)
+# rownames(seq_table) <- sample_data.names
+# seq_table
+# dim(seq_table)
+# table(nchar(getSequences(seq_table)))
 
-# Make a sequence table
-seq_table <- create_abundance_table(dada_output)
-rownames(seq_table) <- sample_data.names
-seq_table
-dim(seq_table)
-table(nchar(getSequences(seq_table)))
+# # Remove chimeras
+# seq_table.nochim <- removeBimeraDenovo(seq_table, method="consensus", multithread=TRUE, verbose=TRUE)
+# dim(seq_table.nochim)
 
-# Remove chimeras
-seq_table.nochim <- removeBimeraDenovo(seq_table, method="consensus", multithread=TRUE, verbose=TRUE)
-dim(seq_table.nochim)
+# # Assign taxonomy
+# taxon_ref_path = "data/ref_datasets/silva_nr99_v138.1_train_set.fa.gz"
+# taxon_database_path <- file.path(current_dir, taxon_ref_path)
+# taxon_database_path
+# taxa <- assignTaxonomy(seq_table.nochim, taxon_database_path)
+# taxa.print <- taxa
+# row_heights <- rep(0.2, nrow(seq_table))
+# rownames(taxa.print) <- NULL
+# head(taxa.print)
+# taxa.print
 
-# Assign taxonomy
-taxon_ref_path = "data/ref_datasets/silva_nr99_v138.1_train_set.fa.gz"
-taxon_database_path <- file.path(current_dir, taxon_ref_path)
-taxon_database_path
-taxa <- assignTaxonomy(seq_table.nochim, taxon_database_path)
-taxa.print <- taxa
-row_heights <- rep(0.2, nrow(seq_table))
-rownames(taxa.print) <- NULL
-head(taxa.print)
-taxa.print
-
-# Plotting
+# # Plotting
 
 
 # ===== Developing Package =====
