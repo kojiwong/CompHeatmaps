@@ -2,7 +2,7 @@
 % Please edit documentation in R/analysis.R
 \name{create_heatmap}
 \alias{create_heatmap}
-\title{Creates heatmap}
+\title{Generates heatmap}
 \usage{
 create_heatmap(table)
 }
@@ -14,5 +14,5 @@ None. Generates a heatmap
 }
 \description{
 `create_heatmap` takes in an abundance table to generate a heatmap
-to illustrate
+to illustrate abundance across samples.
 }

@@ -81,6 +81,29 @@ also utilizes gplot to create heatmap illustrations of abundances.
   amplicon data.” *Nature Methods*, *13*, 581-583.
   <doi:10.1038/nmeth.3869> <https://doi.org/10.1038/nmeth.3869>.
 
+- phyloseq: An R package for reproducible interactive analysis and
+  graphics of microbiome census data. Paul J. McMurdie and Susan Holmes
+
+  2013) PLoS ONE 8(4):e61217.
+
+- Gu, Z. (2014) circlize implements and enhances circular visualization
+  in R. Bioinformatics.
+
+- Müller K (2020). *here: A Simpler Way to Find Your Files*. R package
+  version 1.0.1, <https://CRAN.R-project.org/package=here>.
+
+- Michał Krassowski. (2020). krassowski/complex-upset. Zenodo.
+  <http://doi.org/10.5281/zenodo.3700590>
+
+- Alexander Lex, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot,
+  Hanspeter Pfister, UpSet: Visualization of Intersecting Sets, IEEE
+  Transactions on Visualization and Computer Graphics (InfoVis ’14),
+  vol. 20, no. 12, pp. 1983–1992, 2014.
+
+- Wickham H, Hester J, Chang W, Bryan J (2022). *devtools: Tools to Make
+  Developing R Packages Easier*. R package version 2.4.5,
+  <https://CRAN.R-project.org/package=devtools>.
+
 ## Acknowledgements
 
 This package was developed as part of an assessment for the BCB410H

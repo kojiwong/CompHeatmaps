@@ -13,6 +13,7 @@ create_abundance_table(filtered_results)
 an abundance table
 }
 \description{
-`create_abundance_table` is used to create an abundance matrix table
-which will be used for heatmap generation
+`create_abundance_table` is used to create an abundance matrix table with dada2
+which will be used for heatmap generation. Performs some normalization
+and filtering to simplify results.
 }

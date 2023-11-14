@@ -83,6 +83,28 @@ utilizes gplot to create heatmap illustrations of abundances.
 - Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016). “DADA2: High-resolution sample
   inference from Illumina amplicon data.” _Nature Methods_, *13*, 581-583. doi:10.1038/nmeth.3869
   <https://doi.org/10.1038/nmeth.3869>.
+  
+- phyloseq: An R package for reproducible interactive analysis and
+  graphics of microbiome census data. Paul J. McMurdie and Susan Holmes
+  (2013) PLoS ONE 8(4):e61217.
+
+- Gu, Z. (2014) circlize implements and enhances circular visualization
+  in R. Bioinformatics.
+  
+- Müller K (2020). _here: A Simpler Way to Find Your Files_. R package
+  version 1.0.1, <https://CRAN.R-project.org/package=here>.
+  
+- Michał Krassowski. (2020). krassowski/complex-upset. Zenodo.
+  http://doi.org/10.5281/zenodo.3700590
+
+- Alexander Lex, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot,
+  Hanspeter Pfister, UpSet: Visualization of Intersecting Sets, IEEE
+  Transactions on Visualization and Computer Graphics (InfoVis '14),
+  vol. 20, no. 12, pp. 1983–1992, 2014.
+  
+- Wickham H, Hester J, Chang W, Bryan J (2022). _devtools: Tools to
+  Make Developing R Packages Easier_. R package version 2.4.5,
+  <https://CRAN.R-project.org/package=devtools>.
 
 
 ## Acknowledgements

@@ -39,6 +39,7 @@ print(current_dir)
 #' @param verbose set to true for explicit updates in processing
 #' @param multithread set to true if you wish to utilize multiple CPU cores
 #' @returns a dada output file
+#' @importFrom dada2
 #' @export
 preprocess_16s_data <- function(inputs, outputs, verbose = FALSE, multithread = FALSE) {
   # Set current_dir to refer throughout package
@@ -172,3 +173,9 @@ create_heatmap <- function(table) {
 # ===== Developing Package =====
 usethis::use_mit_license("Koji Wong")
 usethis::use_package("dada2", type = "Imports", min_version = "1.30")
+usethis::use_package("gplots", type = "Imports", min_version = "3.1.3")
+usethis::use_package("here", type = "Imports", min_version = "1.0.1")
+usethis::use_package("circlize", type = "Imports", min_version = "0.4.15")
+usethis::use_package("phyloseq", type = "Imports", min_version = "1.46.0")
+usethis::use_package("ComplexUpset", type = "Imports", min_version = "1.3.3")
+usethis::use_package("ShortRead", type = "Imports", min_version = "1.60.0")
