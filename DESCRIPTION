@@ -1,11 +1,26 @@
 Package: CompHeatmaps
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Creating Heatmaps from Raw 16S rRNA Reads
+Version: 1.0.0
+Author: Koji Wong
+Maintainer: The package maintainer <koji.wong@mail.utoronto.ca>
+Description: This package takes raw 16S rRNA reads across a number of
+    samples to eventually generate a heatmap of the abundance. It first
+    preprocesses the data using dada2, creates an abundance table also
+    using dada2, and creates a heatmap using gplots. 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.2.3
+Imports: 
+    circlize (>= 0.4.15),
+    ComplexUpset (>= 1.3.3),
+    dada2 (>= 1.30),
+    gplots (>= 3.1.3),
+    here (>= 1.0.1),
+    phyloseq (>= 1.46.0),
+    ShortRead (>= 1.60.0)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
