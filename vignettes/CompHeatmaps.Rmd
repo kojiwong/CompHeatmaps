@@ -20,8 +20,8 @@ library(CompHeatmaps)
 
 # Format our data to put into the functions
 current_dir <- getwd()
-sample_data_path <- file.path(current_dir, "data/sample_raw_16S_data")
-sample_output_path <- file.path(current_dir, "data/filtered_reads")
+sample_data_path <- file.path(current_dir, "data/inst/extdata/sample_raw_16S_data")
+sample_output_path <- file.path(current_dir, "data/inst/extdata/filtered_reads")
 
 sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
 sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
