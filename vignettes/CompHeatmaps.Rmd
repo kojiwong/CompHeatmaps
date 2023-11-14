@@ -31,15 +31,16 @@ names(sample_output) <- sample_data.names
 
 # Running this step will take a couple of minutes to run, we are processing millions of
 # sequencing reads. If your CPU has multiple cores, you can try setting `multithread = TRUE`
-# in the parameters. 
+# in the parameters. Set verbose to true to get updates where we are in processing.
 dada_output <- preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
 
 # Make a sequence table
 seq_table <- create_abundance_table(dada_output)
 rownames(seq_table) <- sample_data.names
-seq_table
 # View the dimensions, we will have 1 row for each sample and 1 column for each unique read
 dim(seq_table)
+class(seq_table)
+seq_table[502]
 
 # Finally, plot our data
 create_heatmap(seq_table)

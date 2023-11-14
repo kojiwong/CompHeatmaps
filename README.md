@@ -4,7 +4,6 @@
 # CompHeatmaps
 
 <!-- badges: start -->
-<!-- badges: end -->
 
 A large problem in conducting metatranscriptomic analysis on microbial
 communities is dealing with the complexity of the large amount of data
@@ -15,7 +14,7 @@ raw sequence reads to heatmaps is quite a cumbersome process.
 The goal of CompHeatmaps is to simplify this complex process by
 generating heatmaps as easy as 1, 2, 3.
 
-This package was created in R version 4.3.1
+This package was created in R version 4.3.1 <!-- badges: end -->
 
 ## Installation
 
@@ -24,7 +23,9 @@ You can install the development version of CompHeatmaps from
 
 ``` r
 # install.packages("devtools")
+# library("devtools)
 devtools::install_github("kojiwong/CompHeatmaps")
+library("CompHeatmaps")
 ```
 
 ## Overview
@@ -32,38 +33,68 @@ devtools::install_github("kojiwong/CompHeatmaps")
 The main components of this R package include the functions
 `preprocess_16s_data`, `create_abundance_table`, and `create_heatmap`
 
+The image below illustrates what the inputs and the outputs of the
+package functions are at a glance.
+
+<img src="data/inst/extdata/Overview.png" width="100%" />
+
     ls("package:CompHeatmaps")
     data(package = "CompHeatmaps")
     browseVignettes("CompHeatmaps")
 
+CompHeatmaps contains 3 functions. 1. *preprocess_16s_data* which
+preprocesses raw 16S rRNA using dada2 2. *create_abundance_table* which
+creates an abundance table from our preprocessed data 3.
+*create_heatmap* which creates a heatmap from our abundance table
+
+The package also contains some sample data acquired from the Human
+Microbiome Project (HMP).
+
 ## Contributions
 
-## Example
+The author of this package is Koji Wong. The author wrote the
+`preprocess_16s_data` and `create_abundance_table` functions which
+utilizes the dada2 package to preprocess 16S rRNA data and formats it in
+an abundance table which can be utilized for the other function this
+author created `create_heatmap`, which utilizes the heatmap.2 function
+from the gplots package.
 
-This is a basic example which shows you how to solve a common problem:
+This package heavily depends on the metatranscriptomic pipeline dada2
+for data preprocessing and creation of abundance matrices. This package
+also utilizes gplot to create heatmap illustrations of abundances.
 
-# `` {r example} # library(CompHeatmaps) # ## basic example code #  # # In three simple steps, we go from raw 16S rRNA reads to a heatmap illustrating the abundance  # # of short sequence reads across samples. # current_dir = getwd() # # get our paths # sample_data_path <- file.path(current_dir, "data/sample_raw_16S_data") # sample_output_path <- file.path(current_dir, "data/filtered_reads") #  # # get list of files in each path by their extension # sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE)) # sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1) # sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz")) # sample_output # names(sample_output) <- sample_data.names #  # # run through our functions # processed_data <- CompHeatmaps::preprocess_16s_data(sample_list, sample_output) # abundance_table <- CompHeatmaps::create_abundance_table(processed_data) # CompHeatmaps::create_heatmap(abundance_table) # ``
+## References
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+- A framework for human microbiome research. Human Microbiome Project
+  Consortium, Nature, 486 (2012), pp. 215-221.
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+- Structure, function and diversity of the healthy human microbiome.
+  Human Microbiome Project Consortium, Nature, 486 (2012), pp. 207–214.
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
+- Warnes G, Bolker B, Bonebakker L, Gentleman R, Huber W, Liaw A, Lumley
+  T, Maechler M, Magnusson A, Moeller S, Schwartz M, Venables B (2022).
+  *gplots: Various R Programming Tools for Plotting Data*. R package
+  version 3.1.3, <https://CRAN.R-project.org/package=gplots>.
 
-You can also embed plots, for example:
+- Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP
+  (2016). “DADA2: High-resolution sample inference from Illumina
+  amplicon data.” *Nature Methods*, *13*, 581-583.
+  <doi:10.1038/nmeth.3869> <https://doi.org/10.1038/nmeth.3869>.
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+## Acknowledgements
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+This package was developed as part of an assessment for the BCB410H
+class taken in Fall 2023 with Professor Anjali Silva at the University
+of Toronto, Toronto, Canada. `CompHeatmaps` welcomes any suggestions,
+issues, and contributions to this package.
+
+## Future Improvements
+
+Currently this package produces a heatmap illustrating abundance of
+sequence reads across the samples after filtering, which is not so
+interesting as opposed to taxons. As a result, much of the heatmap will
+consist of neutral abundance representation.
+
+To improve on this for the future, one goal of the package can be to
+perform taxonomic classification on the sequence table and some how
+incorporate this into heatmap creation rather than sequence variants.
