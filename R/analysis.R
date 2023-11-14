@@ -1,10 +1,10 @@
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::version()
-BiocManager::install("dada2")
-BiocManager::install("ShortRead")
 BiocManager::install("rhdf5filters")
 BiocManager::install("phyloseq")
+BiocManager::install("dada2")
+BiocManager::install("ShortRead")
 install.packages("pheatmap")
 install.packages("here")
 
@@ -15,15 +15,9 @@ library("pheatmap")
 library("ShortRead")
 
 current_dir = getwd()
-path <- file.path(current_dir, "data/MiSeq_SOP") # concatenate wd and data files
-path
-list.files(path) # make sure the fastq files are listed
-fnFs <- sort(list.files(path, pattern="_R1_001.fastq", full.names = TRUE))
-fnRs <- sort(list.files(path, pattern="_R2_001.fastq", full.names = TRUE))
-fnFs
-sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
-fout_path <- file.path(current_dir, "/data/output/")
+current_dir
 
+# ===== Package functions ======
 preprocess_16s_data <- function(input_fastq_files, output_files, verbose = FALSE, multithread = FALSE) {
   output_path <- file.path(current_dir, "data/filtered_reads")
   # Quality filter and denoise
@@ -53,11 +47,11 @@ preprocess_16s_data <- function(input_fastq_files, output_files, verbose = FALSE
     print("Piping through dada, this may take a couple of minutes...")
   }
   dada_out <- dada2::dada(sample_output_path, err = err, multithread = multithread)
-  return(out)
+  return(dada_out)
 }
 
 
-create_abundance_table <- function(filt) {
+create_abundance_table <- function(dada_out) {
   # Create a sequence table
   seq_table <- makeSequenceTable(filt)
 
@@ -98,40 +92,3 @@ makeSequenceTable(output_files)
 plotErrors(err, nominalQ=TRUE)
 dada_out <- dada(sample_output_path, err = err)
 dada_out
-
-# ===== DADA2 pipeline =====
-
-#Place filtered files in filtered/ subdirectory
-sample.names
-filtFs <- file.path(path, "filtered", paste0(sample.names, "_F_filt.fastq.gz"))
-filtRs <- file.path(path, "filtered", paste0(sample.names, "_R_filt.fastq.gz"))
-names(filtFs) <- sample.names
-names(filtRs) <- sample.names
-filtFs
-out <- filterAndTrim(fnFs, filtFs, fnRs, filtRs, truncLen=c(240,160),
-                     maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE,
-                     compress=TRUE, multithread=TRUE)
-# Learn the error rates produced from filtering
-errF <- learnErrors(filtFs, multithread=TRUE)
-errR <- learnErrors(filtRs, multithread=TRUE)
-
-# Input to dada2 pipeline
-dadaFs <- dada(filtFs, err=errF, multithread=TRUE)
-dadaRs <- dada(filtRs, err=errR, multithread=TRUE)
-
-mergers <- mergePairs(dadaFs, filtFs, dadaRs, filtRs, verbose=TRUE)
-# Inspect the merger data.frame from the first sample
-head(mergers[[1]])
-
-# Make sequence table
-seqtab <- makeSequenceTable(mergers)
-seqtab
-dim(seqtab)
-# Remove Chimeras
-seqtab.nochim <- removeBimeraDenovo(seqtab, method="consensus", multithread=TRUE, verbose=TRUE)
-dim(seqtab.nochim)
-
-
-# ===== Package functions ======
-
-create_output_dir <- function()
