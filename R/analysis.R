@@ -1,22 +1,3 @@
-# if (!requireNamespace("BiocManager", quietly = TRUE))
-#   install.packages("BiocManager")
-# BiocManager::version()
-# install.packages("Matrix")
-# install.packages("collapsibleTree")
-# install.packages()
-# BiocManager::install("phyloseq")
-# BiocManager::install("dada2")
-# BiocManager::install("ShortRead")
-# # BiocManager::install("ComplexHeatmap")
-# # install.packages("pheatmap")
-# install.packages("here")
-# install.packages(c("circlize", "ComplexUpset"))
-# install.packages("gplots")
-
-# Package developing tools
-library("devtools")
-library("usethis")
-
 # Packages used by library
 library("circlize")
 library("ComplexUpset")
@@ -26,10 +7,6 @@ library("phyloseq")
 # library("pheatmap")
 library("ShortRead")
 library("gplots")
-
-# Set current_dir to refer throughout package
-current_dir = getwd()
-print(current_dir)
 
 # ===== Package functions ======
 #' Preprocess 16S Data
