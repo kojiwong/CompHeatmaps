@@ -15,7 +15,8 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#===== Examples for Vignettes ========
+#===== Examples for Vignettes ======
+library("devtools")
 library(CompHeatmaps)
 
 # Format our data to put into the functions
