@@ -39,7 +39,7 @@ print(current_dir)
 #' @param verbose set to true for explicit updates in processing
 #' @param multithread set to true if you wish to utilize multiple CPU cores
 #' @returns a dada output file
-#' @importFrom dada2
+#' @import dada2
 #' @export
 preprocess_16s_data <- function(inputs, outputs, verbose = FALSE, multithread = FALSE) {
   # Set current_dir to refer throughout package
@@ -89,6 +89,7 @@ preprocess_16s_data <- function(inputs, outputs, verbose = FALSE, multithread = 
 #'
 #' @param filtered_results the filtered results produced by dada2
 #' @returns an abundance table
+#' @import dada2
 #' @export
 create_abundance_table <- function(filtered_results) {
   # Create a sequence table
@@ -116,6 +117,7 @@ create_abundance_table <- function(filtered_results) {
 #' to illustrate abundance across samples.
 #' @param table abundance table generated from `create_abundance_table`
 #' @returns None. Generates a heatmap
+#' @import gplots
 #' @export
 create_heatmap <- function(table) {
   gplots::heatmap.2(as.matrix(table),

@@ -1,8 +1,8 @@
 Package: CompHeatmaps
 Type: Package
-Title: Creating Heatmaps from Raw 16S rRNA Reads
+Title: Generating Heatmaps from Raw 16S rRNA Reads
 Version: 1.0.0
-Author: Koji Wong
+Author: Koji Wong (koji.wong@mail.utoronto.ca)
 Maintainer: The package maintainer <koji.wong@mail.utoronto.ca>
 Description: This package takes raw 16S rRNA reads across a number of
     samples to eventually generate a heatmap of the abundance. It first
@@ -11,6 +11,7 @@ Description: This package takes raw 16S rRNA reads across a number of
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 4.3.1)
 RoxygenNote: 7.2.3
 Imports: 
     circlize (>= 0.4.15),
@@ -24,3 +25,4 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/kojiwong/CompHeatmaps
