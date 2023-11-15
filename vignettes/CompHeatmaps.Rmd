@@ -29,8 +29,8 @@ First we want to get our data into the right format.
 current_dir <- getwd()
 # Make sure that current dir is mapped to package folder and not vignettes folder.
 print(current_dir)
-sample_data_path <- file.path(current_dir, "data/inst/extdata/sample_raw_16S_data")
-sample_output_path <- file.path(current_dir, "data/inst/extdata/filtered_reads")
+sample_data_path <- file.path(current_dir, "../data/inst/extdata/sample_raw_16S_data")
+sample_output_path <- file.path(current_dir, "../data/inst/extdata/filtered_reads")
 sample_data_path
 list.files(sample_data_path)
 sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
