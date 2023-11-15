@@ -4,7 +4,6 @@ library("ComplexUpset")
 library("here")
 library("dada2")
 library("phyloseq")
-# library("pheatmap")
 library("ShortRead")
 library("gplots")
 
@@ -112,13 +111,3 @@ create_heatmap <- function(table) {
           Rowv = TRUE,
           col = heat.colors(256))
 }
-
-# ===== Developing Package =====
-usethis::use_mit_license("Koji Wong")
-usethis::use_package("dada2", type = "Imports", min_version = "1.30")
-usethis::use_package("gplots", type = "Imports", min_version = "3.1.3")
-usethis::use_package("here", type = "Imports", min_version = "1.0.1")
-usethis::use_package("circlize", type = "Imports", min_version = "0.4.15")
-usethis::use_package("phyloseq", type = "Imports", min_version = "1.46.0")
-usethis::use_package("ComplexUpset", type = "Imports", min_version = "1.3.3")
-usethis::use_package("ShortRead", type = "Imports", min_version = "1.60.0")

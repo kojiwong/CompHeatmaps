@@ -1,6 +1,7 @@
 ---
-title: "CompHeatmaps"
+title: "Exploring CompHeatmaps"
 output: rmarkdown::html_vignette
+author: "Koji Wong"
 vignette: >
   %\VignetteIndexEntry{CompHeatmaps}
   %\VignetteEngine{knitr::rmarkdown}
@@ -14,11 +15,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-#===== Examples for Vignettes ======
-library("devtools")
-library(CompHeatmaps)
+To download **CompHeatmaps** use the following commands
+```{r}
+require("devtools")
+devtools::install_github("kojiwong/CompHeatmaps")
+# load the library
+library("CompHeatmaps")
+```
 
+First we want to get our data into the right format.
+```{r}
 # Format our data to put into the functions
 current_dir <- getwd()
 # Make sure that current dir is mapped to package folder and not vignettes folder.
@@ -33,12 +39,19 @@ sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
 sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
 sample_output
 names(sample_output) <- sample_data.names
+```
 
+Now that our data is in the correct format, we can pass it through
+the `Compheatmaps::preprocess_16s_data` function.
+```{r}
 # Running this step will take a couple of minutes to run, we are processing millions of
 # sequencing reads. If your CPU has multiple cores, you can try setting `multithread = TRUE`
 # in the parameters. Set verbose to true to get updates where we are in processing.
 dada_output <- CompHeatmaps::preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+```
 
+Let's make a sequence table to analyze the abundance of our processed reads.
+```{r}
 # Make a sequence table
 seq_table <- create_abundance_table(dada_output)
 rownames(seq_table) <- sample_data.names
@@ -46,7 +59,51 @@ rownames(seq_table) <- sample_data.names
 dim(seq_table)
 class(seq_table)
 seq_table[502]
+```
 
-# Finally, plot our data
+Finally, we can plot our data using the `create_heatmap` function.
+```r
 create_heatmap(seq_table)
 ```
+
+
+## References
+
+- A framework for human microbiome research. Human Microbiome Project
+  Consortium, Nature, 486 (2012), pp. 215-221.
+
+- Structure, function and diversity of the healthy human microbiome.
+  Human Microbiome Project Consortium, Nature, 486 (2012), pp. 207–214.
+
+- Warnes G, Bolker B, Bonebakker L, Gentleman R, Huber W, Liaw A, Lumley
+  T, Maechler M, Magnusson A, Moeller S, Schwartz M, Venables B (2022).
+  *gplots: Various R Programming Tools for Plotting Data*. R package
+  version 3.1.3, <https://CRAN.R-project.org/package=gplots>.
+
+- Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP
+  (2016). “DADA2: High-resolution sample inference from Illumina
+  amplicon data.” *Nature Methods*, *13*, 581-583.
+  <doi:10.1038/nmeth.3869> <https://doi.org/10.1038/nmeth.3869>.
+
+- phyloseq: An R package for reproducible interactive analysis and
+  graphics of microbiome census data. Paul J. McMurdie and Susan Holmes
+
+  2013) PLoS ONE 8(4):e61217.
+
+- Gu, Z. (2014) circlize implements and enhances circular visualization
+  in R. Bioinformatics.
+
+- Müller K (2020). *here: A Simpler Way to Find Your Files*. R package
+  version 1.0.1, <https://CRAN.R-project.org/package=here>.
+
+- Michał Krassowski. (2020). krassowski/complex-upset. Zenodo.
+  <http://doi.org/10.5281/zenodo.3700590>
+
+- Alexander Lex, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot,
+  Hanspeter Pfister, UpSet: Visualization of Intersecting Sets, IEEE
+  Transactions on Visualization and Computer Graphics (InfoVis ’14),
+  vol. 20, no. 12, pp. 1983–1992, 2014.
+
+- Wickham H, Hester J, Chang W, Bryan J (2022). *devtools: Tools to Make
+  Developing R Packages Easier*. R package version 2.4.5,
+  <https://CRAN.R-project.org/package=devtools>.
