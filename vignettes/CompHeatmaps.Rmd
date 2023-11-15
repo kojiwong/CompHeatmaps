@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 To download **CompHeatmaps** use the following commands
 ```{r}
 require("devtools")
-devtools::install_github("kojiwong/CompHeatmaps")
+devtools::install_github("kojiwong/CompHeatmaps", build_vignettes = TRUE)
 # load the library
 library("CompHeatmaps")
 ```
