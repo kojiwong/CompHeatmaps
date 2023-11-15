@@ -21,10 +21,14 @@ library(CompHeatmaps)
 
 # Format our data to put into the functions
 current_dir <- getwd()
+# Make sure that current dir is mapped to package folder and not vignettes folder.
+print(current_dir)
 sample_data_path <- file.path(current_dir, "data/inst/extdata/sample_raw_16S_data")
 sample_output_path <- file.path(current_dir, "data/inst/extdata/filtered_reads")
-
+sample_data_path
+list.files(sample_data_path)
 sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
+sample_list
 sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
 sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
 sample_output
@@ -33,7 +37,7 @@ names(sample_output) <- sample_data.names
 # Running this step will take a couple of minutes to run, we are processing millions of
 # sequencing reads. If your CPU has multiple cores, you can try setting `multithread = TRUE`
 # in the parameters. Set verbose to true to get updates where we are in processing.
-dada_output <- preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+dada_output <- CompHeatmaps::preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
 
 # Make a sequence table
 seq_table <- create_abundance_table(dada_output)
