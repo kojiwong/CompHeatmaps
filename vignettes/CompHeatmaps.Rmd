@@ -39,11 +39,6 @@ sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
 sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
 sample_output
 names(sample_output) <- sample_data.names
-```
-
-Now that our data is in the correct format, we can pass it through
-the `Compheatmaps::preprocess_16s_data` function.
-```{r}
 # Running this step will take a couple of minutes to run, we are processing millions of
 # sequencing reads. If your CPU has multiple cores, you can try setting `multithread = TRUE`
 # in the parameters. Set verbose to true to get updates where we are in processing.
