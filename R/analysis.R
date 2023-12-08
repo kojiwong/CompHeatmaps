@@ -1,39 +1,46 @@
-# Packages used by library
-library("circlize")
-library("ComplexUpset")
-library("here")
-library("dada2")
-library("phyloseq")
-library("ShortRead")
-library("gplots")
-
 # ===== Package functions ======
 #' Preprocess 16S Data
 #'
 #' `preprocess_16s_data` preprocesses 16S rRNA single or paired-end reads
 #' that are in FASTQ format.
 #'
-#' @param input_fastq_files directory containing desired input files
-#' @param output_files directory where output files will go
-#' @param verbose set to true for explicit updates in processing
+#' @param input_dir directory containing desired input files. Must be in fastq.gz, fastq.bz2, or .fastq file
+#' @param output_dir target directory where preprocessed data will be saved
+#' @param verbose set to true for explicit updates during preprocessing
 #' @param multithread set to true if you wish to utilize multiple CPU cores
 #' @returns a dada output file
 #' @import dada2
 #' @export
-preprocess_16s_data <- function(inputs, outputs, verbose = FALSE, multithread = FALSE) {
-  # Set current_dir to refer throughout package
-  current_dir = getwd()
-  print(current_dir)
+preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithread = FALSE) {
+  # Check if directories are valid
+  if (!is.character(input_dir) || length(input_dir) == 0 || !dir.exists(input_dir)) {
+    stop("Specified directory containing input data is invalid. Please provide a valid and existing directory path.")
+  }
+  if (!is.character(output_dir) || length(output_dir) == 0 || !dir.exists(output_dir)) {
+    stop("Specified output directory is invalid. Please provide a valid and existing directory path.")
+  }
+  if (input_dir == output_dir) {
+    stop("Output directory must be distinct from input directory.")
+  }
+  # Check if input directory contains valid files
+  files <- list.files(input_dir)
+  valid_formats <- c(".fastq.gz", ".fastq.bz2", ".fastq")
+  # Check if there are files with the specified formats
+  matching_files <- grep(paste(valid_formats, collapse = "|"), files, value = TRUE)
+  if (length(matching_files) == 0) {
+    stop("No files with valid formats (.fastq.gz, .fastq.bz2, .fastq) found in the directory.")
+  }
 
-  output_path <- file.path(current_dir, "data/filtered_reads")
   # Quality filter and denoise
   if (verbose) {
     print("Filtering Paired Reads in 16S Data, this may take a couple of minutes...")
   }
-
+  # Key step. Calls the dada2 filterAndTrim function which takes the raw 16S data
+  # from our input directory and filters and trims each fastq file. Outputs compressed
+  # fastq files containing trimmed reads which passed the filters.
   out <- dada2::filterAndTrim(
-    inputs,
-    outputs,
+    input_dir,
+    output_dir,
     trimLeft = 0,
     truncLen = 140,
     maxN = 0,
@@ -48,12 +55,12 @@ preprocess_16s_data <- function(inputs, outputs, verbose = FALSE, multithread = 
     print("Learning the Error Rates, this may take a couple of minutes...")
   }
   # Learn the Error Rates
-  err <- dada2::learnErrors(sample_output_path, multithread = multithread)
+  err <- dada2::learnErrors(output_dir, multithread = multithread)
   if (verbose) {
     print("Error Learning Step complete.")
     print("Piping through dada, this may take a couple of minutes...")
   }
-  dada_out <- dada2::dada(sample_output_path, err = err, multithread = multithread)
+  dada_out <- dada2::dada(output_dir, err = err, multithread = multithread)
   if (verbose) {
     print("Preprocessing of 16S data done.")
   }
