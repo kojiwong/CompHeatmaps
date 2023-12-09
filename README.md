@@ -5,16 +5,19 @@
 
 <!-- badges: start -->
 
+## Description
+
 A large problem in conducting metatranscriptomic analysis on microbial
 communities is dealing with the complexity of the large amount of data
 we are working with. Heatmaps are a useful visualization that illustrate
 the abundance across these samples at a glance. However, getting from
 raw sequence reads to heatmaps is quite a cumbersome process.
 
-The goal of CompHeatmaps is to simplify this complex process by
-generating heatmaps as easy as 1, 2, 3.
+The goal of CompHeatmaps is to simplify this complex process by easily
+generating heatmaps from raw 16S reads.
 
-This package was created in R version 4.3.1 <!-- badges: end -->
+This package was created in R version 4.3.1 on Mac platform with macOS
+version Sonoma 14.1 <!-- badges: end -->
 
 ## Installation
 
@@ -22,9 +25,9 @@ You can install the development version of CompHeatmaps from
 [GitHub](https://github.com/kojiwong/CompHeatmaps) with:
 
 ``` r
-# install.packages("devtools")
-# library("devtools)
-devtools::install_github("kojiwong/CompHeatmaps")
+install.packages("devtools")
+library("devtools)
+devtools::install_github("kojiwong/CompHeatmaps", build_vignettes=TRUE)
 library("CompHeatmaps")
 ```
 
@@ -97,7 +100,7 @@ also utilizes gplot to create heatmap illustrations of abundances.
 
 - Alexander Lex, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot,
   Hanspeter Pfister, UpSet: Visualization of Intersecting Sets, IEEE
-  Transactions on Visualization and Computer Graphics (InfoVis ’14),
+  Transactions on Visualization and Computer Graphics (*InfoVis* ’14),
   vol. 20, no. 12, pp. 1983–1992, 2014.
 
 - Wickham H, Hester J, Chang W, Bryan J (2022). *devtools: Tools to Make
