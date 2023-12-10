@@ -25,16 +25,8 @@
 #' class(result[[1]]) # dada2
 #' }
 #'
-#'
-#' @author {Koji Wong, \email{koji.wong@mail.utoronto.ca}}
-#'
-#' @references
-#' Structure, function and diversity of the healthy human microbiome.
-#' Human Microbiome Project Consortium, Nature, 486   (2012), pp. 207–214.
-#'
-#' Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
-#' “DADA2: High-resolution sample inference from Illumina amplicon data.”
-#' Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 <https://doi.org/10.1038/nmeth.3869>
+#' @author
+#' Koji Wong
 #'
 #' @import dada2
 #' @export
@@ -103,6 +95,9 @@ preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithr
 #' which will be used for heatmap generation. Performs some normalization
 #' and filtering to simplify results. Removes sequence variants identified as
 #' bimeric from the table to clean up further.
+#' @param filtered_results the filtered results produced by dada2, a list of dada objects
+#' @param multithread set to TRUE to compute with multithreading for faster generation, only works with multiple cores
+#' @returns an abundance table
 #'
 #' @examples
 #' library("CompHeatmaps")
@@ -114,16 +109,8 @@ preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithr
 #' # can further explore data with `table[1, ]`, `table[, 1]`
 #' }
 #'
-#' @author {Koji Wong, \email{koji.wong@mail.utoronto.ca}}
+#' @author {Koji Wong}
 #'
-#' @references
-#' Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
-#' “DADA2: High-resolution sample inference from Illumina amplicon data.”
-#' Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 <https://doi.org/10.1038/nmeth.3869>.
-#'
-#' @param filtered_results the filtered results produced by dada2, a list of dada objects
-#' @param multithread set to TRUE to compute with multithreading for faster generation, only works with multiple cores
-#' @returns an abundance table
 #' @import dada2
 #' @export
 create_abundance_table <- function(filtered_results, multithread = FALSE) {
