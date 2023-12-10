@@ -16,7 +16,7 @@ RoxygenNote: 7.2.3
 biocViews: 	Classification, ImmunoOncology, Metagenomics, Microbiome, Sequencing, Software
 Imports: 
     dada2 (>= 1.30),
-    ggplot2 (>= 3.4.4.9000),
+    ggplot2 (>= 3.4.4),
     gplots (>= 3.1.3),
     shiny (>= 1.8.0)
 Suggests: 
