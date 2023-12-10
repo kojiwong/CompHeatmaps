@@ -64,15 +64,17 @@ from the gplots package.
 
 This package heavily depends on the metatranscriptomic pipeline dada2
 for data preprocessing and creation of abundance matrices. This package
-also utilizes gplot to create heatmap illustrations of abundances.
+also utilizes gplots to create heatmap illustrations of abundances and
+ggplot2 to export the created plot.
 
 ## References
 
 - A framework for human microbiome research. Human Microbiome Project
-  Consortium, Nature, 486 (2012), pp. 215-221.
+  Consortium, *Nature*, 486 (2012), pp. 215-221.
 
 - Structure, function and diversity of the healthy human microbiome.
-  Human Microbiome Project Consortium, Nature, 486 (2012), pp. 207–214.
+  Human Microbiome Project Consortium, *Nature*, 486 (2012),
+  pp. 207–214.
 
 - Warnes G, Bolker B, Bonebakker L, Gentleman R, Huber W, Liaw A, Lumley
   T, Maechler M, Magnusson A, Moeller S, Schwartz M, Venables B (2022).
@@ -84,20 +86,6 @@ also utilizes gplot to create heatmap illustrations of abundances.
   amplicon data.” *Nature Methods*, *13*, 581-583.
   <doi:10.1038/nmeth.3869> <https://doi.org/10.1038/nmeth.3869>.
 
-- phyloseq: An R package for reproducible interactive analysis and
-  graphics of microbiome census data. Paul J. McMurdie and Susan Holmes
-
-  2013) PLoS ONE 8(4):e61217.
-
-- Gu, Z. (2014) circlize implements and enhances circular visualization
-  in R. Bioinformatics.
-
-- Müller K (2020). *here: A Simpler Way to Find Your Files*. R package
-  version 1.0.1, <https://CRAN.R-project.org/package=here>.
-
-- Michał Krassowski. (2020). krassowski/complex-upset. Zenodo.
-  <http://doi.org/10.5281/zenodo.3700590>
-
 - Alexander Lex, Nils Gehlenborg, Hendrik Strobelt, Romain Vuillemot,
   Hanspeter Pfister, UpSet: Visualization of Intersecting Sets, IEEE
   Transactions on Visualization and Computer Graphics (*InfoVis* ’14),
@@ -106,6 +94,14 @@ also utilizes gplot to create heatmap illustrations of abundances.
 - Wickham H, Hester J, Chang W, Bryan J (2022). *devtools: Tools to Make
   Developing R Packages Easier*. R package version 2.4.5,
   <https://CRAN.R-project.org/package=devtools>.
+
+- H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York, 2016.
+
+- Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Xie Y, Allen J,
+  McPherson J, Dipert A, Borges B (2023). *shiny: Web Application
+  Framework for R*. R package version 1.8.0,
+  <https://CRAN.R-project.org/package=shiny>.
 
 ## Acknowledgements
 
