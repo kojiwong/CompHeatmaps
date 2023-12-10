@@ -16,16 +16,14 @@ knitr::opts_chunk$set(
 ```
 
 To download **CompHeatmaps** use the following commands
-```{r}
-
+``` r
 require("devtools")
 devtools::install_github("kojiwong/CompHeatmaps")
-# load the library
 library("CompHeatmaps")
 ```
 
 First we want to get our data into the right format.
-```{r}
+``` r
 # Make sure that current dir is mapped to package folder and not vignettes folder.
 print(getwd())
 sample_data_path <- system.file("inst/extdata/sample_raw_16S_data")
@@ -59,7 +57,7 @@ Sample 4 - 229677 reads in 77916 unique sequences.
 
 
 Let's make a sequence table to analyze the abundance of our processed reads.
-```{r}
+``` r
 # Make a sequence table
 seq_table <- create_abundance_table(dada_output)
 rownames(seq_table) <- sample_data.names
@@ -70,7 +68,7 @@ seq_table[502]
 ```
 
 Finally, we can plot our data using the `create_heatmap` function.
-```{r}
+``` r
 create_heatmap(seq_table)
 ```
 
