@@ -15,19 +15,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-To download **CompHeatmaps** use the following commands
+## Introduction
+`CompHeatmaps` is an R package developed to assist in initial metatranscriptomic investigation of microbial communities. This package utilizes the dada2 package from Bioconductor to preprocess sequence variants of the highly conserved but variable 16S region of bacteria, which acts as a barcode for bacterial species.
+
+To download **CompHeatmaps** use the following commands:
 ``` r
 require("devtools")
-devtools::install_github("kojiwong/CompHeatmaps")
+devtools::install_github("kojiwong/CompHeatmaps", build_vignettes = TRUE)
 library("CompHeatmaps")
 ```
 
 First we want to get our data into the right format.
-``` r
+```{r}
 # Make sure that current dir is mapped to package folder and not vignettes folder.
 print(getwd())
-sample_data_path <- system.file("inst/extdata/sample_raw_16S_data")
-sample_output_path <- system.file("inst/extdata/filtered_reads")
+sample_data_path <- system.file("inst/extdata/sample_raw_16S_data", package = "CompHeatmaps")
+sample_output_path <- system.file("inst/extdata/filtered_reads", package = "CompHeatmaps")
 list.files(sample_data_path)
 sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
 sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
@@ -37,10 +40,12 @@ names(sample_output) <- sample_data.names
 # sequencing reads. If your CPU has multiple cores, you can try setting `multithread = TRUE`
 # in the parameters. Set verbose to true to get updates where we are in processing.
 # dada_output <- CompHeatmaps::preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
-dada_output <- readRDS("data/outputs/result")
+# For the sake of this vignette, we will use a saved output as this step takes a long time
+saved_output_path <- system.file("data/outputs/results", package = "CompHeatmaps")
+dada_output <- readRDS(saved_output_path)
 ```
 Below is what the output looks like while it is running with verbose set to TRUE. We can also see
-progress of the 4 samples being piped through dada2's `filterAndTrim` function.
+progress of the 4 samples being piped through dada2's `dada` function.
 ```
 [1] "Filtering Paired Reads in 16S Data, this may take a couple of minutes..."
 [1] "Filtering Step complete."
@@ -57,7 +62,7 @@ Sample 4 - 229677 reads in 77916 unique sequences.
 
 
 Let's make a sequence table to analyze the abundance of our processed reads.
-``` r
+``` {r}
 # Make a sequence table
 seq_table <- create_abundance_table(dada_output)
 rownames(seq_table) <- sample_data.names
@@ -68,7 +73,7 @@ seq_table[502]
 ```
 
 Finally, we can plot our data using the `create_heatmap` function.
-``` r
+``` {r}
 create_heatmap(seq_table)
 ```
 

@@ -84,7 +84,7 @@ preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithr
   if (verbose) {
     print("Preprocessing of 16S data done.")
   }
-  saveRDS(dada_out, "data/outputs/result")
+  saveRDS(dada_out, system.file("data/outputs/result"), package = "CompHeatmaps")
   return(dada_out)
 }
 
@@ -171,15 +171,11 @@ create_abundance_table <- function(filtered_results, multithread = FALSE) {
 #' @import gplots
 #' @import ggplot2
 #' @export
-create_heatmap <- function(table, output_dir, proportion = 1) {
+create_heatmap <- function(table, proportion = 1) {
   # Check table class type
   if (!is(table, "matrix")) {
     message = "table parameter must be a 2D matrix where each row is a sample and each column is a 16S sequence."
     stop(message)
-  }
-  # Check if output directory exists
-  if (!is.character(output_dir) || length(output_dir) == 0 || !dir.exists(output_dir)) {
-    stop("Specified output directory is invalid. Please provide a valid and existing directory path.")
   }
 
   if (proportion <= 0) {
@@ -204,10 +200,10 @@ create_heatmap <- function(table, output_dir, proportion = 1) {
               Colv = TRUE,
               Rowv = TRUE,
               col = heat.colors(256))
-  annotation = ggplot2::annotation_custom(grob = ggplot2::ggplotGrob(heatmap), xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-  heatmap_ggplot <- ggplot2::ggplot() + annotation + ggplot2::theme_void()
+  #annotation = ggplot2::annotation_custom(grob = ggplot2::ggplotGrob(heatmap), xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
+  #heatmap_ggplot <- ggplot2::ggplot() + annotation + ggplot2::theme_void()
   #saveRDS(heatmap, paste(output_dir, "heatmap", sep = "/"))
-  ggplot2::ggsave(file.path(output_dir, "heatmap.png"), plot = heatmap_ggplot, width = 6, height = 4)
+  #ggplot2::ggsave(file.path(output_dir, "heatmap.png"), plot = heatmap_ggplot, width = 6, height = 4)
   return(heatmap)
 }
 # [END]
