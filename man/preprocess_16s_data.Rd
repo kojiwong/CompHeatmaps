@@ -2,23 +2,55 @@
 % Please edit documentation in R/analysis.R
 \name{preprocess_16s_data}
 \alias{preprocess_16s_data}
-\title{Preprocess 16S Data}
+\title{Preprocess 16S Sequence Data using Dada2 Package}
 \usage{
-preprocess_16s_data(inputs, outputs, verbose = FALSE, multithread = FALSE)
+preprocess_16s_data(
+  input_dir,
+  output_dir,
+  verbose = FALSE,
+  multithread = FALSE
+)
 }
 \arguments{
-\item{verbose}{set to true for explicit updates in processing}
+\item{input_dir}{directory containing desired input files. Must be in fastq.gz, fastq.bz2, or .fastq file}
 
-\item{multithread}{set to true if you wish to utilize multiple CPU cores}
+\item{output_dir}{target directory where preprocessed data will be saved. This is the same directory that will be used to learn error rates.}
 
-\item{input_fastq_files}{directory containing desired input files}
+\item{verbose}{set to true for explicit updates during preprocessing}
 
-\item{output_files}{directory where output files will go}
+\item{multithread}{set to true if you wish to utilize multiple CPU cores for extra speed.}
 }
 \value{
 a dada output file
 }
 \description{
 `preprocess_16s_data` preprocesses 16S rRNA single or paired-end reads
-that are in FASTQ format.
+that are in FASTQ format. This function calls the `filterAndTrim` function from
+the dada2 package which filters and trims fastq file inputs.
+}
+\examples{
+# Example:
+# Directory containing raw single-end 16S reads
+input <- file.path("sample_raw_16S_data", package = "CompHeatmaps")
+output <- file.path("/path/to/output_dir")
+\dontrun{
+library("CompHeatmaps")
+# Set verbose to TRUE for updates on progress in terminal and multithread to TRUE for faster computation if you have multiple cores.
+CompHeatmaps::preprocess_16s_data(input_dir = input, output_dir = output, verbose = TRUE, multithread = TRUE)
+length(result) # 4
+class(result) # list
+class(result[[1]]) # dada2
+}
+
+}
+\references{
+Structure, function and diversity of the healthy human microbiome.
+Human Microbiome Project Consortium, Nature, 486   (2012), pp. 207–214.
+
+Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
+“DADA2: High-resolution sample inference from Illumina amplicon data.”
+Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 \href{<https://doi.org/10.1038/nmeth.3869>}.
+}
+\author{
+{Koji Wong, \email{koji.wong@mail.utoronto.ca}}
 }

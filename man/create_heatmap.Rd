@@ -2,17 +2,36 @@
 % Please edit documentation in R/analysis.R
 \name{create_heatmap}
 \alias{create_heatmap}
-\title{Generates heatmap}
+\title{Generates a heatmap to illustrate the abundance of organisms across sample microbiomes.}
 \usage{
-create_heatmap(table)
+create_heatmap(table, output_dir, proportion = 1)
 }
 \arguments{
 \item{table}{abundance table generated from `create_abundance_table`}
+
+\item{output_dir}{directory to save output heatmap object to}
+
+\item{proportion}{proportion of table between 0 and 1 to visualize. If 1, will visualize all columns, if 0.5 will visualize the first half of the columns of the table.}
 }
 \value{
-None. Generates a heatmap
+A heatmap object
 }
 \description{
-`create_heatmap` takes in an abundance table to generate a heatmap
-to illustrate abundance across samples.
+`create_heatmap` takes in an abundance matrix to generate a heatmap
+to illustrate abundance of 16S sequence variants across samples.
+}
+\examples{
+plots_dir = "data/graphics"
+\dontrun{
+create_heatmap(table, plots_dir, proportion = 0.025)
+}
+
+}
+\references{
+Warnes G, Bolker B, Bonebakker L, Gentleman R, Huber W, Liaw A, Lumley T, Maechler M, Magnusson A,
+Moeller S, Schwartz M, Venables B (2022). gplots: Various R Programming Tools for Plotting Data. R
+package version 3.1.3, <https://CRAN.R-project.org/package=gplots>.
+}
+\author{
+{Koji Wong, \email{koji.wong@mail.utoronto.ca}}
 }

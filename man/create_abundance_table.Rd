@@ -2,18 +2,41 @@
 % Please edit documentation in R/analysis.R
 \name{create_abundance_table}
 \alias{create_abundance_table}
-\title{Creates an abundance matrix table}
+\title{Creates a matrix table of abundance counts of 16S reads across samples.}
 \usage{
-create_abundance_table(filtered_results)
+create_abundance_table(filtered_results, multithread = FALSE)
 }
 \arguments{
-\item{filtered_results}{the filtered results produced by dada2}
+\item{filtered_results}{the filtered results produced by dada2, a list of dada objects}
+
+\item{multithread}{set to TRUE to compute with multithreading for faster generation, only works with multiple cores}
 }
 \value{
 an abundance table
 }
 \description{
-`create_abundance_table` is used to create an abundance matrix table with dada2
+`create_abundance_table` is takes in as input a list of dada2 objects
+that have been filtered to create an abundance matrix table with dada2
 which will be used for heatmap generation. Performs some normalization
-and filtering to simplify results.
+and filtering to simplify results. Removes sequence variants identified as
+bimeric from the table to clean up further.
+}
+\examples{
+library("CompHeatmaps")
+/dontrun {
+# get filtered_reads from running `preprocess_16s_data()` on dataset
+table <- CompHeatmaps::create_abundance_table(filtered_reads)
+table[[1]] # -0.632696, abundance count after normalized and scaled
+dim(table) # 4 432, 4 rows each a sample in our input directory and 432 columns each a 16S sequence
+# can further explore data with `table[1, ]`, `table[, 1]`
+}
+
+}
+\references{
+Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
+“DADA2: High-resolution sample inference from Illumina amplicon data.”
+Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 \href{<https://doi.org/10.1038/nmeth.3869>}.
+}
+\author{
+{Koji Wong, \email{koji.wong@mail.utoronto.ca}}
 }
