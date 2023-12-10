@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' library("CompHeatmaps")
-#' /dontrun{
+#' \dontrun{
 #' # get filtered_reads from running `preprocess_16s_data()` on dataset
 #' table <- CompHeatmaps::create_abundance_table(filtered_reads)
 #' table[[1]] # -0.632696, abundance count after normalized and scaled
