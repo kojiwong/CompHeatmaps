@@ -35,7 +35,9 @@ library("CompHeatmaps")
 Use the sample fastq data stored in the inst/extdata/sample_raw_16S_data as input for the first preprocessing step done in `preprocess_16s_data`. Running this step will take a couple of minutes to run, we are processing millions of bacterial reads. If your CPU has multiple cores, you can try setting `multithread = TRUE` in the parameters. You may also set `verbose = TRUE` to get updates where we are in processing.
 # sequencing reads
 ``` r
-dada_output <- CompHeatmaps::preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+input_dir <- system.file("inst/extdata/sample_raw_16s_data", package = "CompHeatmaps")
+output_dir <- system.file("inst/extdata/filtered_outputs", package = "CompHeatmaps")
+dada_output <- CompHeatmaps::preprocess_16s_data(input_dir, output_dir, verbose = TRUE, multithread = TRUE)
 # Below is what the output looks like while it is running with verbose set to TRUE. 
 # Note: We can also see progress of the 4 samples being piped through dada2's `dada` function.
 ## [1] "Filtering Paired Reads in 16S Data, this may take a couple of minutes..."
