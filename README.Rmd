@@ -17,11 +17,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 ## Description
-A large problem in conducting metatranscriptomic analysis on microbial communities is dealing with the complexity
-of the large amount of data we are working with. Heatmaps are a useful visualization that illustrate the abundance
-across these samples at a glance. However, getting from raw sequence reads to heatmaps is quite a cumbersome process.
+A large problem in conducting metatranscriptomic analysis on microbial communities is dealing with the complexity of the large amount of data we are working with. Heatmaps are a useful visualization that illustrate the abundance across these samples at a glance. However, getting from raw sequence reads to heatmaps is quite a cumbersome process.
 
-The goal of CompHeatmaps is to simplify this complex process by easily generating heatmaps from raw 16S reads.
+The goal of CompHeatmaps is to simplify this complex process by easily generating heatmaps from raw 16S sequence variants.
 
 This package was created in R version 4.3.1 on Mac platform with macOS version Sonoma 14.1
 <!-- badges: end -->
@@ -34,6 +32,11 @@ install.packages("devtools")
 library("devtools)
 devtools::install_github("kojiwong/CompHeatmaps", build_vignettes=TRUE)
 library("CompHeatmaps")
+```
+
+To run the Shiny app:
+``` r
+CompHeatmaps::runCompHeatmaps()
 ```
 
 
@@ -52,7 +55,6 @@ The heatmap below is produced after `create_heatmap()` following the examples.
 
 ```
 ls("package:CompHeatmaps")
-data(package = "CompHeatmaps")
 browseVignettes("CompHeatmaps")
 ```
     
@@ -61,7 +63,7 @@ CompHeatmaps contains 3 functions.
   2. *create_abundance_table* which creates an abundance table from our preprocessed data
   3. *create_heatmap* which creates a heatmap from our abundance table
   
-The package also contains some sample data acquired from the Human Microbiome Project (HMP).
+The package also contains some sample data acquired from the Human Microbiome Project (HMP). This data is located in the directory "inst/extdata/sample_raw_16S_data" of this package.
 
 ## Contributions
 The author of this package is Koji Wong. The author wrote the 
@@ -121,5 +123,8 @@ representation.
 To improve on this for the future, one goal of the package can
 be to perform taxonomic classification on the sequence table and some how
 incorporate this into heatmap creation rather than sequence variants.
+
+Another improvement could be on the heatmap generation itself, by adding placeholder
+names for the sequence variants rather than the DNA sequence. 
 
 

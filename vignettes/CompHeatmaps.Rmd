@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-`CompHeatmaps` is an R package developed to assist in initial metatranscriptomic investigation of microbial communities. This package utilizes the dada2 package from Bioconductor to preprocess sequence variants of the highly conserved but variable 16S region of bacteria, which acts as a barcode for bacterial species.
+`CompHeatmaps` is an R package developed to assist in initial metatranscriptomic investigation of microbial communities. This package utilizes the dada2 package from Bioconductor to preprocess sequence variants of the highly conserved but variable 16S rRNA V4 region of bacteria, which acts as a barcode to associated with the bacterial species.
 
 To download **CompHeatmaps** use the following commands:
 ``` r

@@ -19,11 +19,6 @@ ui <- pageWithSidebar(
       label = "Output Directory",
       placeholder="filtered_reads_output_directory"
       ),
-    fileInput(
-      inputId = "heatmap_dir",
-      label = "Plots Directory",
-      placeholder="graphics_directory"
-    ),
     actionButton(
       inputId = "run_button",
       label = "Run"
@@ -56,7 +51,7 @@ server <- function(input, output, session) {
   )
   input_dir <- reactive({
     if (is.null(input$input_dir)) {
-      return(system.file("extdata", "sample_raw_16S_data", package = "CompHeatmaps"))
+      return(system.file("extdata/sample_raw_16S_data", package = "CompHeatmaps"))
     }
     else {
       req(input$input_dir)
@@ -64,21 +59,16 @@ server <- function(input, output, session) {
   })
   output_dir <- reactive({
     if (is.null(input$output_dir)) {
-      return(system.file("data", "outputs", package = "CompHeatmaps"))
-    }
-  })
-  heatmap_dir <- reactive({
-    if (is.null(input$output_dir)) {
-      return(system.file("data", "graphics", package = "CompHeatmaps"))
+      return(system.file("extdata/filtered_reads", package = "CompHeatmaps"))
     }
   })
   observeEvent(input$run_button, {
-
     tryCatch({
-      if (is.null(input$output_dir))
-      result <- CompHeatmaps::preprocess_16s_data(input_dir(), output_dir(), verbose = TRUE)
+      path <- system.file("data/precomputed/result", package = "CompHeatmaps")
+      result <- readRDS(path)
+      #result <- CompHeatmaps::preprocess_16s_data(input_dir(), output_dir(), verbose = TRUE)
       table <- CompHeatmaps::create_abundance_table(result)
-      output$heatmap <- CompHeatmaps::create_heatmap(table, heatmap_dir)
+      output$heatmap <- CompHeatmaps::create_heatmap(table, proportion = 0.025)
     })
   })
 }

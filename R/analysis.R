@@ -15,7 +15,7 @@
 #' # Example:
 #' # Directory containing raw single-end 16S reads
 #' input <- system.file("inst/extdata/sample_raw_16S_data", package = "CompHeatmaps")
-#' output <- system.file("/inst/extdata/filtered_reads", package = "CompHeatmaps)
+#' output <- system.file("/inst/extdata/filtered_reads", package = "CompHeatmaps")
 #' \dontrun{
 #' library("CompHeatmaps")
 #' # Set verbose to TRUE for updates on progress in terminal and multithread to TRUE for faster computation if you have multiple cores.
@@ -196,7 +196,7 @@ create_heatmap <- function(table, proportion = 1) {
               key = TRUE,
               keysize = 1,
               density.info = "none",
-              margins = c(5, 20),
+              margins = c(50, 100),
               Colv = TRUE,
               Rowv = TRUE,
               col = heat.colors(256))

@@ -14,7 +14,7 @@ the abundance across these samples at a glance. However, getting from
 raw sequence reads to heatmaps is quite a cumbersome process.
 
 The goal of CompHeatmaps is to simplify this complex process by easily
-generating heatmaps from raw 16S reads.
+generating heatmaps from raw 16S sequence variants.
 
 This package was created in R version 4.3.1 on Mac platform with macOS
 version Sonoma 14.1 <!-- badges: end -->
@@ -31,6 +31,12 @@ devtools::install_github("kojiwong/CompHeatmaps", build_vignettes=TRUE)
 library("CompHeatmaps")
 ```
 
+To run the Shiny app:
+
+``` r
+CompHeatmaps::runCompHeatmaps()
+```
+
 ## Overview
 
 The main components of this R package include the functions
@@ -45,7 +51,6 @@ The heatmap below is produced after `create_heatmap()` following the
 examples. <img src="inst/extdata/Heatmap.png" width="100%" />
 
     ls("package:CompHeatmaps")
-    data(package = "CompHeatmaps")
     browseVignettes("CompHeatmaps")
 
 CompHeatmaps contains 3 functions. 1. *preprocess_16s_data* which
@@ -54,7 +59,8 @@ creates an abundance table from our preprocessed data 3.
 *create_heatmap* which creates a heatmap from our abundance table
 
 The package also contains some sample data acquired from the Human
-Microbiome Project (HMP).
+Microbiome Project (HMP). This data is located in the directory
+“inst/extdata/sample_raw_16S_data” of this package.
 
 ## Contributions
 
@@ -123,3 +129,7 @@ consist of neutral abundance representation.
 To improve on this for the future, one goal of the package can be to
 perform taxonomic classification on the sequence table and some how
 incorporate this into heatmap creation rather than sequence variants.
+
+Another improvement could be on the heatmap generation itself, by adding
+placeholder names for the sequence variants rather than the DNA
+sequence.
