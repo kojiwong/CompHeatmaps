@@ -45,7 +45,10 @@ The main components of this R package include the functions
 The image below illustrates what the inputs and the outputs of the package
 functions are at a glance.
 
-<img src="data/inst/extdata/Overview.png" width="100%" />
+<img src="inst/extdata/Overview.png" width="100%" />
+
+The heatmap below is produced after `create_heatmap()` following the examples.
+<img src="inst/extdata/Heatmap.png" width="100%" />
 
 ```
 ls("package:CompHeatmaps")
