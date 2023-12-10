@@ -4,11 +4,10 @@
 #' The purpose of this app is to allow users to interact and create heatmaps on the fly from raw data.
 #' app works. The code has been placed in \code{./inst/shiny-scripts}.
 #'
-#' @return No return value but open up a Shiny page.
+#' @return No return value, opens up a Shiny page.
 #'
 #' @examples
 #' \dontrun{
-#'
 #' CompHeatmaps::runCompHeatmaps()
 #' }
 #'
