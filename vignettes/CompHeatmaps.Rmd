@@ -17,33 +17,46 @@ knitr::opts_chunk$set(
 
 To download **CompHeatmaps** use the following commands
 ```{r}
+
 require("devtools")
-devtools::install_github("kojiwong/CompHeatmaps", build_vignettes = TRUE)
+devtools::install_github("kojiwong/CompHeatmaps")
 # load the library
 library("CompHeatmaps")
 ```
 
 First we want to get our data into the right format.
 ```{r}
-# Format our data to put into the functions
-current_dir <- getwd()
 # Make sure that current dir is mapped to package folder and not vignettes folder.
-print(current_dir)
-sample_data_path <- file.path(current_dir, "../data/inst/extdata/sample_raw_16S_data")
-sample_output_path <- file.path(current_dir, "../data/inst/extdata/filtered_reads")
-sample_data_path
+print(getwd())
+sample_data_path <- system.file("inst/extdata/sample_raw_16S_data")
+sample_output_path <- system.file("inst/extdata/filtered_reads")
 list.files(sample_data_path)
 sample_list <-sort(list.files(sample_data_path, pattern=".fastq.gz", full.names = TRUE))
-sample_list
 sample_data.names <- sapply(strsplit(basename(sample_list), "_"), `[`, 1)
 sample_output <- file.path(sample_output_path, paste0(sample_data.names, "_filt.fastq.gz"))
-sample_output
 names(sample_output) <- sample_data.names
 # Running this step will take a couple of minutes to run, we are processing millions of
 # sequencing reads. If your CPU has multiple cores, you can try setting `multithread = TRUE`
 # in the parameters. Set verbose to true to get updates where we are in processing.
-dada_output <- CompHeatmaps::preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+# dada_output <- CompHeatmaps::preprocess_16s_data(sample_list, sample_output, verbose = TRUE, multithread = TRUE)
+dada_output <- readRDS("data/outputs/result")
 ```
+Below is what the output looks like while it is running with verbose set to TRUE. We can also see
+progress of the 4 samples being piped through dada2's `filterAndTrim` function.
+```
+[1] "Filtering Paired Reads in 16S Data, this may take a couple of minutes..."
+[1] "Filtering Step complete."
+[1] "Learning the Error Rates, this may take a couple of minutes..."
+111202000 total bases in 794300 reads from 3 samples will be used for learning the error rates.
+[1] "Error Learning Step complete."
+[1] "Piping through dada, this may take a couple of minutes..."
+Sample 1 - 243193 reads in 78981 unique sequences.
+Sample 2 - 302169 reads in 117320 unique sequences.
+Sample 3 - 248938 reads in 91878 unique sequences.
+Sample 4 - 229677 reads in 77916 unique sequences.
+[1] "Preprocessing of 16S data done."
+```
+
 
 Let's make a sequence table to analyze the abundance of our processed reads.
 ```{r}
@@ -57,7 +70,7 @@ seq_table[502]
 ```
 
 Finally, we can plot our data using the `create_heatmap` function.
-```r
+```{r}
 create_heatmap(seq_table)
 ```
 
@@ -65,10 +78,10 @@ create_heatmap(seq_table)
 ## References
 
 - A framework for human microbiome research. Human Microbiome Project
-  Consortium, Nature, 486 (2012), pp. 215-221.
+  Consortium, Nature, 486 (2012), pp. 215-221.
 
 - Structure, function and diversity of the healthy human microbiome.
-  Human Microbiome Project Consortium, Nature, 486 (2012), pp. 207–214.
+  Human Microbiome Project Consortium, Nature, 486 (2012), pp. 207–214.
 
 - Warnes G, Bolker B, Bonebakker L, Gentleman R, Huber W, Liaw A, Lumley
   T, Maechler M, Magnusson A, Moeller S, Schwartz M, Venables B (2022).
