@@ -84,7 +84,6 @@ preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithr
   if (verbose) {
     print("Preprocessing of 16S data done.")
   }
-  saveRDS(dada_out, system.file("data/precomputed/result", package = "CompHeatmaps"))
   return(dada_out)
 }
 

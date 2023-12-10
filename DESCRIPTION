@@ -20,9 +20,12 @@ Imports:
     ggplot2 (>= 3.4.4),
     shiny (>= 1.8.0),
     tibble (>= 3.2.1)
+Remotes:
+    Bioconductor/dada2
 Suggests: 
     knitr,
     rmarkdown,
+    devtools,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/kojiwong/CompHeatmaps
