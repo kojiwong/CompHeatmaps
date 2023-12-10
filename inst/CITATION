@@ -2,11 +2,11 @@ citHeader("To cite CompHeatmaps in publications use:")
 
 citEntry(
   entry    = "Unpublished",
-  title    = "CompHeatmaps: Easy visualization of raw 16S reads for metatranscriptomic analysis",
+  title    = "CompHeatmaps: Visualization of raw 16S sequence variant abundance for metatranscriptomic analysis",
   author   = "Koji Wong",
   year     = 2023,
   note     = "Unpublished",
   textVersion =
-  paste("Wong, K. (2023) CompHeatmaps: Easy visualization of raw 16S reads for metatranscriptomic analysis.
+  paste("Wong, K. (2023) CompHeatmaps: Visualization of raw 16S sequence variant abundance for metatranscriptomic analysis.
         Unpublished. URL https://github.com/kojiwong/CompHeatmaps.")
 )
