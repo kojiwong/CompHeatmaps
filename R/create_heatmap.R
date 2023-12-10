@@ -5,13 +5,14 @@
 #'
 #' @param table abundance table generated from `create_abundance_table`
 #' @param proportion proportion of table between 0 and 1 to visualize. If 1, will visualize all columns, if 0.5 will visualize the first half of the columns of the table.
+#' @param low_col a colour to indicate low values on the heatmap
+#' @param high_col a colour to indicate high values on the heatmap
 #'
 #' @returns A ggplot2 heatmap object
 #'
 #' @examples
-#' plots_dir = "data/graphics"
 #' \dontrun{
-#' heatmap <- create_heatmap(table, plots_dir, proportion = 0.025)
+#' heatmap <- create_heatmap(table, proportion = 0.025)
 #' }
 #'
 #' @author {Koji Wong, \email{koji.wong@mail.utoronto.ca}}
