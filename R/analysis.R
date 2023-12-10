@@ -11,7 +11,7 @@
 #'
 #' @returns a dada output file
 #'
-#' #' @examples
+#' @examples
 #' # Example:
 #' # Directory containing raw single-end 16S reads
 #' input <- file.path("sample_raw_16S_data", package = "CompHeatmaps")
@@ -25,8 +25,6 @@
 #' class(result[[1]]) # dada2
 #' }
 #'
-#' @import dada2
-#' @export
 #'
 #' @author {Koji Wong, \email{koji.wong@mail.utoronto.ca}}
 #'
@@ -36,9 +34,10 @@
 #'
 #' Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
 #' “DADA2: High-resolution sample inference from Illumina amplicon data.”
-#' Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 \href{<https://doi.org/10.1038/nmeth.3869>}.
+#' Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 <https://doi.org/10.1038/nmeth.3869>
 #'
-#'
+#' @import dada2
+#' @export
 preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithread = FALSE) {
   # Check if directories are valid
   if (!is.character(input_dir) || length(input_dir) == 0 || !dir.exists(input_dir)) {
@@ -107,7 +106,7 @@ preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithr
 #'
 #' @examples
 #' library("CompHeatmaps")
-#' /dontrun {
+#' /dontrun{
 #' # get filtered_reads from running `preprocess_16s_data()` on dataset
 #' table <- CompHeatmaps::create_abundance_table(filtered_reads)
 #' table[[1]] # -0.632696, abundance count after normalized and scaled
@@ -120,7 +119,7 @@ preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithr
 #' @references
 #' Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
 #' “DADA2: High-resolution sample inference from Illumina amplicon data.”
-#' Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 \href{<https://doi.org/10.1038/nmeth.3869>}.
+#' Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 <https://doi.org/10.1038/nmeth.3869>.
 #'
 #' @param filtered_results the filtered results produced by dada2, a list of dada objects
 #' @param multithread set to TRUE to compute with multithreading for faster generation, only works with multiple cores
@@ -170,8 +169,8 @@ create_abundance_table <- function(filtered_results, multithread = FALSE) {
 #' @returns A heatmap object
 #'
 #' @examples
+#' plots_dir = "data/graphics"
 #' \dontrun{
-#' plots_dir = "data/graphics
 #' create_heatmap(table, plots_dir, proportion = 0.025)
 #' }
 #'
@@ -214,10 +213,10 @@ create_heatmap <- function(table, output_dir, proportion = 1) {
               key = TRUE,
               keysize = 1,
               density.info = "none",
-              margins = c(5, 10),
+              margins = c(5, 20),
               Colv = TRUE,
               Rowv = TRUE,
-              col = heat.colors(112))
+              col = heat.colors(256))
   annotation = ggplot2::annotation_custom(grob = ggplot2::ggplotGrob(heatmap), xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
   heatmap_ggplot <- ggplot2::ggplot() + annotation + ggplot2::theme_void()
   #saveRDS(heatmap, paste(output_dir, "heatmap", sep = "/"))
