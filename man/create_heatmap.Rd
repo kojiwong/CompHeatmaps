@@ -4,14 +4,14 @@
 \alias{create_heatmap}
 \title{Generates a heatmap to illustrate the abundance of organisms across sample microbiomes.}
 \usage{
-create_heatmap(table, output_dir, proportion = 1)
+create_heatmap(table, proportion = 1)
 }
 \arguments{
 \item{table}{abundance table generated from `create_abundance_table`}
 
-\item{output_dir}{directory to save output heatmap object to}
-
 \item{proportion}{proportion of table between 0 and 1 to visualize. If 1, will visualize all columns, if 0.5 will visualize the first half of the columns of the table.}
+
+\item{output_dir}{directory to save output heatmap object to}
 }
 \value{
 A heatmap object

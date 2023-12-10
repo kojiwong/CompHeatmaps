@@ -14,8 +14,8 @@
 #' @examples
 #' # Example:
 #' # Directory containing raw single-end 16S reads
-#' input <- file.path("sample_raw_16S_data", package = "CompHeatmaps")
-#' output <- file.path("/path/to/output_dir")
+#' input <- system.file("inst/extdata/sample_raw_16S_data", package = "CompHeatmaps")
+#' output <- system.file("/inst/extdata/filtered_reads", package = "CompHeatmaps)
 #' \dontrun{
 #' library("CompHeatmaps")
 #' # Set verbose to TRUE for updates on progress in terminal and multithread to TRUE for faster computation if you have multiple cores.
@@ -84,7 +84,7 @@ preprocess_16s_data <- function(input_dir, output_dir, verbose = FALSE, multithr
   if (verbose) {
     print("Preprocessing of 16S data done.")
   }
-  saveRDS(dada_out, system.file("data/outputs/result"), package = "CompHeatmaps")
+  saveRDS(dada_out, system.file("data/precomputed/result", package = "CompHeatmaps"))
   return(dada_out)
 }
 
