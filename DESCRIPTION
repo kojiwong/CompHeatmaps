@@ -13,6 +13,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 4.3.1)
 RoxygenNote: 7.2.3
+biocViews: 	Classification, ImmunoOncology, Metagenomics, Microbiome, Sequencing, Software
 Imports: 
     dada2 (>= 1.30),
     ggplot2 (>= 3.4.4.9000),
