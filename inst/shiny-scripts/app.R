@@ -19,6 +19,13 @@ ui <- pageWithSidebar(
       label = "Output Directory",
       placeholder="filtered_reads_output_directory"
       ),
+    sliderInput(
+      "proportion",
+      label = "Proportion",
+      min = 0.01,
+      max = 1,
+      value = 0.025
+    ),
     actionButton(
       inputId = "run_button",
       label = "Run"
@@ -46,7 +53,9 @@ server <- function(input, output, session) {
          of various samples you wish to analyze. For the second input, include
          a valid output directory where the preprocessed data will go to.
          If you wish to run with the example data, you may press the
-         <code>Run</code> button without linking any directories.
+         <code>Run</code> button without linking any directories. You may adjust
+         the 'proportion' slider to the proportion of the abundance table you wish
+         to visualize.
          ")
   )
   input_dir <- reactive({
@@ -62,13 +71,18 @@ server <- function(input, output, session) {
       return(system.file("extdata/filtered_reads", package = "CompHeatmaps"))
     }
   })
+  proportion <- reactive({
+    return(input$proportion)
+  })
   observeEvent(input$run_button, {
     tryCatch({
       path <- system.file("data/precomputed/result", package = "CompHeatmaps")
       result <- readRDS(path)
       #result <- CompHeatmaps::preprocess_16s_data(input_dir(), output_dir(), verbose = TRUE)
       table <- CompHeatmaps::create_abundance_table(result)
-      output$heatmap <- CompHeatmaps::create_heatmap(table, proportion = 0.025)
+      output$heatmap <- renderPlot({
+        CompHeatmaps::create_heatmap(table, proportion = proportion())
+      })
     })
   })
 }

@@ -40,7 +40,8 @@ CompHeatmaps::runCompHeatmaps()
 ## Overview
 
 The main components of this R package include the functions
-`preprocess_16s_data`, `create_abundance_table`, and `create_heatmap`
+`preprocess_16s_data`, `create_abundance_table`, and `create_heatmap`.
+These functions are meant to be run in the specified listed order.
 
 The image below illustrates what the inputs and the outputs of the
 package functions are at a glance.
@@ -53,10 +54,27 @@ examples. <img src="inst/extdata/Heatmap.png" width="100%" />
     ls("package:CompHeatmaps")
     browseVignettes("CompHeatmaps")
 
-CompHeatmaps contains 3 functions. 1. *preprocess_16s_data* which
-preprocesses raw 16S rRNA using dada2 2. *create_abundance_table* which
-creates an abundance table from our preprocessed data 3.
-*create_heatmap* which creates a heatmap from our abundance table
+CompHeatmaps contains 3 functions: - `preprocess_16s_data`: This
+function takes in a directory of raw sequence reads of a sample in fastq
+file, one file per sample and an output directory where filtered results
+will be outputted to. In addition, it can take a `verbose` bool to print
+updates of preprocessing and a `multithread` bool if you wish to use
+multithreading. This function returns a list of a filtered dada objects
+which we can pass into `create_abundance_table`.
+
+- `create_abundance_table`: This function takes in a list of dada
+  objects to create an abundance table from preprocessed 16S data. You
+  may also pass a `multithread` bool to process large amounts of data
+  quicker. This function outputs a normalized and scaled matrix of
+  relative abundance of sequence variants between samples.
+
+- `create_heatmap`: This function takes in two inputs. The first is the
+  abundance matrix we generated in `create_abundance_table` that we wish
+  to visualize. The second parameter is `proportion`, a number between 0
+  and 1 which dictates the proportion of the abundance table we wish to
+  visualize. By default, `proportion` is set to 1 which will visualize
+  relative abundance of all the sequence variants. Ths function returns
+  a ggplot2 heatmap.
 
 The package also contains some sample data acquired from the Human
 Microbiome Project (HMP). This data is located in the directory
@@ -68,13 +86,16 @@ The author of this package is Koji Wong. The author wrote the
 `preprocess_16s_data` and `create_abundance_table` functions which
 utilizes the dada2 package to preprocess 16S rRNA data and formats it in
 an abundance table which can be utilized for the other function this
-author created `create_heatmap`, which utilizes the heatmap.2 function
-from the gplots package.
+author created `create_heatmap`, which calls the ggplot2 package for
+visualization.
 
 This package heavily depends on the metatranscriptomic pipeline dada2
 for data preprocessing and creation of abundance matrices. This package
-also utilizes gplots to create heatmap illustrations of abundances and
-ggplot2 to export the created plot.
+also utilizes ggplot2 to create heatmap illustrations of sequence
+variant abundances.
+
+This package also makes use of ggplot2 to create heatmaps, as well as
+packages tibble and tidyr to clean up the table for ggplot2 input.
 
 ## References
 
@@ -84,11 +105,6 @@ ggplot2 to export the created plot.
 - Structure, function and diversity of the healthy human microbiome.
   Human Microbiome Project Consortium, *Nature*, 486 (2012),
   pp. 207–214.
-
-- Warnes G, Bolker B, Bonebakker L, Gentleman R, Huber W, Liaw A, Lumley
-  T, Maechler M, Magnusson A, Moeller S, Schwartz M, Venables B (2022).
-  *gplots: Various R Programming Tools for Plotting Data*. R package
-  version 3.1.3, <https://CRAN.R-project.org/package=gplots>.
 
 - Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP
   (2016). “DADA2: High-resolution sample inference from Illumina
@@ -106,6 +122,12 @@ ggplot2 to export the created plot.
 
 - H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
   Springer-Verlag New York, 2016.
+
+- Müller K, Wickham H (2023). *tibble: Simple Data Frames*. R package
+  version 3.2.1, <https://CRAN.R-project.org/package=tibble>.
+
+- Wickham H, Vaughan D, Girlich M (2023). *tidyr: Tidy Messy Data*. R
+  package version 1.3.0, <https://CRAN.R-project.org/package=tidyr>.
 
 - Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Xie Y, Allen J,
   McPherson J, Dipert A, Borges B (2023). *shiny: Web Application

@@ -150,28 +150,32 @@ create_abundance_table <- function(filtered_results, multithread = FALSE) {
 #' to illustrate abundance of 16S sequence variants across samples.
 #'
 #' @param table abundance table generated from `create_abundance_table`
-#' @param output_dir directory to save output heatmap object to
 #' @param proportion proportion of table between 0 and 1 to visualize. If 1, will visualize all columns, if 0.5 will visualize the first half of the columns of the table.
 #'
-#' @returns A heatmap object
+#' @returns A ggplot2 heatmap object
 #'
 #' @examples
 #' plots_dir = "data/graphics"
 #' \dontrun{
-#' create_heatmap(table, plots_dir, proportion = 0.025)
+#' heatmap <- create_heatmap(table, plots_dir, proportion = 0.025)
 #' }
 #'
 #' @author {Koji Wong, \email{koji.wong@mail.utoronto.ca}}
 #'
 #' @references
-#' Warnes G, Bolker B, Bonebakker L, Gentleman R, Huber W, Liaw A, Lumley T, Maechler M, Magnusson A,
-#' Moeller S, Schwartz M, Venables B (2022). gplots: Various R Programming Tools for Plotting Data. R
-#' package version 3.1.3, <https://CRAN.R-project.org/package=gplots>.
+#' H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 #'
-#' @import gplots
+#' Wickham H, Vaughan D, Girlich M (2023). tidyr: Tidy Messy Data.
+#' R package version 1.3.0, <https://CRAN.R-project.org/package=tidyr>.
+#'
+#' Müller K, Wickham H (2023). tibble: Simple Data Frames.
+#' R package version 3.2.1, <https://CRAN.R-project.org/package=tibble>.
+#'
 #' @import ggplot2
+#' @import tibble
+#' @import tidyr
 #' @export
-create_heatmap <- function(table, proportion = 1) {
+create_heatmap <- function(table, proportion = 1, low_col = "#F2E7C9", high_col ="#801A86") {
   # Check table class type
   if (!is(table, "matrix")) {
     message = "table parameter must be a 2D matrix where each row is a sample and each column is a 16S sequence."
@@ -186,24 +190,22 @@ create_heatmap <- function(table, proportion = 1) {
     message = paste("Proportion value must be less than or equal to 1 but received value", proportion)
     stop(message)
   }
-  len = round(proportion * length(table[1, ]))
 
-  # Generate our heatmap using gplots heatmap function
-  heatmap <- gplots::heatmap.2(as.matrix(table[, 1:len]),
-              scale = "row",
-              trace = "none",
-              main = "Abundance Heatmap",
-              key = TRUE,
-              keysize = 1,
-              density.info = "none",
-              margins = c(50, 100),
-              Colv = TRUE,
-              Rowv = TRUE,
-              col = heat.colors(256))
-  #annotation = ggplot2::annotation_custom(grob = ggplot2::ggplotGrob(heatmap), xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-  #heatmap_ggplot <- ggplot2::ggplot() + annotation + ggplot2::theme_void()
-  #saveRDS(heatmap, paste(output_dir, "heatmap", sep = "/"))
-  #ggplot2::ggsave(file.path(output_dir, "heatmap.png"), plot = heatmap_ggplot, width = 6, height = 4)
+  len = round(proportion * length(table[1, ]))
+  prop_table = table[, 1:len]
+  colnames(prop_table) <- paste0("S", 1:len, sep = "")  # Changed column names
+
+  # Clean up our table using tibble and tidyr
+  tidy_data <- as.data.frame(prop_table) %>%
+    tibble::rownames_to_column(var = "Sample") %>%
+    tidyr::gather(key = "Species", value = "Abundance", -Sample)
+  # Generate our heatmap using ggplot2
+  heatmap <- ggplot2::ggplot(tidy_data, aes(x = Species, y = Sample, fill = Abundance)) +
+    ggplot2::geom_tile() +
+    ggplot2::scale_fill_gradient(low = low_col, high = high_col) +
+    ggplot2::theme_minimal() +
+    ggplot2::labs(title = "Abundance Heatmap")
+  print(heatmap)
   return(heatmap)
 }
 # [END]

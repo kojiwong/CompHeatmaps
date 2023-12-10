@@ -13,11 +13,12 @@
 #'
 #' @export
 #' @importFrom shiny runApp
+#' @import shiny
 
 runCompHeatmaps <- function() {
-  appDir <- system.file("shiny-scripts",
+  app_dir <- system.file("shiny-scripts",
                         package = "CompHeatmaps")
-  actionShiny <- shiny::runApp(appDir, display.mode = "normal")
-  return(actionShiny)
+  action_shiny <- shiny::runApp(app_dir, display.mode = "normal")
+  return(action_shiny)
 }
 # [END]
