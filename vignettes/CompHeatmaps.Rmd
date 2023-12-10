@@ -37,9 +37,9 @@ Use the sample fastq data stored in the inst/extdata/sample_raw_16S_data as inpu
 ``` r
 input_dir <- system.file("inst/extdata/sample_raw_16s_data", package = "CompHeatmaps")
 output_dir <- system.file("inst/extdata/filtered_outputs", package = "CompHeatmaps")
-dada_output <- CompHeatmaps::preprocess_16s_data(input_dir, output_dir, verbose = TRUE, multithread = TRUE)
 # Below is what the output looks like while it is running with verbose set to TRUE. 
 # Note: We can also see progress of the 4 samples being piped through dada2's `dada` function.
+dada_output <- CompHeatmaps::preprocess_16s_data(input_dir, output_dir, verbose = TRUE, multithread = TRUE)
 ## [1] "Filtering Paired Reads in 16S Data, this may take a couple of minutes..."
 ## [1] "Filtering Step complete."
 ## [1] "Learning the Error Rates, this may take a couple of minutes..."
