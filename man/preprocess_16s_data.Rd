@@ -43,14 +43,6 @@ class(result[[1]]) # dada2
 }
 
 }
-\references{
-Structure, function and diversity of the healthy human microbiome.
-Human Microbiome Project Consortium, Nature, 486   (2012), pp. 207–214.
-
-Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
-“DADA2: High-resolution sample inference from Illumina amplicon data.”
-Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 \href{<https://doi.org/10.1038/nmeth.3869>}.
-}
 \author{
-{Koji Wong, \email{koji.wong@mail.utoronto.ca}}
+Koji Wong
 }

@@ -23,7 +23,7 @@ bimeric from the table to clean up further.
 }
 \examples{
 library("CompHeatmaps")
-/dontrun {
+/dontrun{
 # get filtered_reads from running `preprocess_16s_data()` on dataset
 table <- CompHeatmaps::create_abundance_table(filtered_reads)
 table[[1]] # -0.632696, abundance count after normalized and scaled
@@ -32,11 +32,6 @@ dim(table) # 4 432, 4 rows each a sample in our input directory and 432 columns 
 }
 
 }
-\references{
-Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJA, Holmes SP (2016).
-“DADA2: High-resolution sample inference from Illumina amplicon data.”
-Nature Methods, 13, 581-583. doi:10.1038/nmeth.3869 \href{<https://doi.org/10.1038/nmeth.3869>}.
-}
 \author{
-{Koji Wong, \email{koji.wong@mail.utoronto.ca}}
+{Koji Wong}
 }
