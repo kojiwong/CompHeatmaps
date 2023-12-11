@@ -26,6 +26,16 @@ ui <- pageWithSidebar(
       max = 1,
       value = 0.025
     ),
+    colourInput(
+      "low_col",
+      label = "Low Value Colour",
+      value = "#F2E7C9"
+    ),
+    colourInput(
+      "high_col",
+      label = "High Value Colour",
+      value = "#801A86"
+    ),
     actionButton(
       inputId = "run_button",
       label = "Run"
@@ -74,6 +84,12 @@ server <- function(input, output, session) {
   proportion <- reactive({
     return(input$proportion)
   })
+  low_col <- reactive({
+    return(input$low_col)
+  })
+  high_col <- reactive({
+    return(input$high_col)
+  })
   observeEvent(input$run_button, {
     tryCatch({
       path <- system.file("extdata/precomputed/result", package = "CompHeatmaps")
@@ -81,7 +97,7 @@ server <- function(input, output, session) {
       #result <- CompHeatmaps::preprocess_16s_data(input_dir(), output_dir(), verbose = TRUE)
       table <- CompHeatmaps::create_abundance_table(result)
       output$heatmap <- renderPlot({
-        CompHeatmaps::create_heatmap(table, proportion = proportion())
+        CompHeatmaps::create_heatmap(table, proportion = proportion(), low_col = low_col(), high_col = high_col())
       })
     })
   })

@@ -11,7 +11,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "##"
 )
 ```
 
@@ -35,11 +35,11 @@ library("CompHeatmaps")
 Use the sample fastq data stored in the inst/extdata/sample_raw_16S_data as input for the first preprocessing step done in `preprocess_16s_data`. Running this step will take a couple of minutes to run, we are processing millions of bacterial reads. If your CPU has multiple cores, you can try setting `multithread = TRUE` in the parameters. You may also set `verbose = TRUE` to get updates where we are in processing.
 # sequencing reads
 ``` r
-input_dir <- system.file("inst/extdata/sample_raw_16s_data", package = "CompHeatmaps")
-output_dir <- system.file("inst/extdata/filtered_outputs", package = "CompHeatmaps")
+input_dir <- system.file("extdata/sample_raw_16s_data", package = "CompHeatmaps")
+output_dir <- system.file("extdata/filtered_reads", package = "CompHeatmaps")
 # Below is what the output looks like while it is running with verbose set to TRUE. 
 # Note: We can also see progress of the 4 samples being piped through dada2's `dada` function.
-dada_output <- CompHeatmaps::preprocess_16s_data(input_dir, output_dir, verbose = TRUE, multithread = TRUE)
+dada_output <- CompHeatmaps::preprocess_16s_data(input_dir, output_dir, verbose = TRUE, multithread = FALSE)
 ## [1] "Filtering Paired Reads in 16S Data, this may take a couple of minutes..."
 ## [1] "Filtering Step complete."
 ## [1] "Learning the Error Rates, this may take a couple of minutes..."
@@ -62,7 +62,6 @@ Let's make a sequence table to analyze the abundance of our processed reads.
 ``` r
 # Make a sequence table
 seq_table <- create_abundance_table(dada_output)
-rownames(seq_table) <- sample_data.names
 # View the dimensions, we will have 1 row for each sample and 1 column for each unique read
 dim(seq_table)
 ## [1]   4 432
@@ -74,7 +73,7 @@ seq_table[, 1]
 ##           -0.632696           -0.203601            1.468992           -0.632696 
 ```
 
-Finally, we can plot our data using the `create_heatmap` function. We use `proportion` to cut a slice of the heatmap for cleaner visual analysis. With `proportion = 1` (default) the heatmap will visualize relative sequence abundance across all 432 sequence variants across the 4 samples.
+Finally, we can plot our data using the `create_heatmap` function. We use `proportion` to cut a slice of the heatmap for cleaner visual analysis. With `proportion = 1` (default) the heatmap will visualize relative sequence abundance across all 432 sequence variants of our example data across the 4 samples.
 ``` r
 create_heatmap(table = seq_table, proportion = 0.025)
 ```
