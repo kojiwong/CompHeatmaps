@@ -1,5 +1,7 @@
 library("CompHeatmaps")
 library("shiny")
+library("colourpicker")
+
 ui <- pageWithSidebar(
   headerPanel('Generate Heatmap with CompHeatmaps'),
   sidebarPanel(
@@ -8,7 +10,6 @@ ui <- pageWithSidebar(
     tags$h3("Instructions"),
     uiOutput("instruction"),
 
-    #uiOutput("instruction")
     fileInput(
       inputId = "input_dir",
       label = "Input Directory",
@@ -26,12 +27,12 @@ ui <- pageWithSidebar(
       max = 1,
       value = 0.025
     ),
-    colourInput(
+    colourpicker::colourInput(
       "low_col",
       label = "Low Value Colour",
       value = "#F2E7C9"
     ),
-    colourInput(
+    colourpicker::colourInput(
       "high_col",
       label = "High Value Colour",
       value = "#801A86"

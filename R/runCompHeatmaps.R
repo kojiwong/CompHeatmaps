@@ -14,6 +14,7 @@
 #' @export
 #' @importFrom shiny runApp
 #' @import shiny
+#' @import colourpicker
 
 runCompHeatmaps <- function() {
   app_dir <- system.file("shiny-scripts",

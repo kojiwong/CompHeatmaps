@@ -31,10 +31,10 @@ the dada2 package which filters and trims fastq file inputs.
 \examples{
 # Example:
 # Directory containing raw single-end 16S reads
-input <- system.file("inst/extdata/sample_raw_16S_data", package = "CompHeatmaps")
-output <- system.file("/inst/extdata/filtered_reads", package = "CompHeatmaps")
 \dontrun{
 library("CompHeatmaps")
+input <- system.file("extdata/sample_raw_16S_data", package = "CompHeatmaps")
+output <- system.file("extdata/filtered_reads", package = "CompHeatmaps")
 # Set verbose to TRUE for updates on progress in terminal and multithread to TRUE for faster computation if you have multiple cores.
 CompHeatmaps::preprocess_16s_data(input_dir = input, output_dir = output, verbose = TRUE, multithread = TRUE)
 length(result) # 4

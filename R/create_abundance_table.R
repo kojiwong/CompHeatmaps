@@ -10,9 +10,9 @@
 #' @returns an abundance table
 #'
 #' @examples
-#' library("CompHeatmaps")
 #' \dontrun{
-#' # get filtered_reads from running `preprocess_16s_data()` on dataset
+#' library("CompHeatmaps")
+#' # get filtered_reads parameter from running output of `preprocess_16s_data()`
 #' table <- CompHeatmaps::create_abundance_table(filtered_reads)
 #' table[[1]] # -0.632696, abundance count after normalized and scaled
 #' dim(table) # 4 432, 4 rows each a sample in our input directory and 432 columns each a 16S sequence
