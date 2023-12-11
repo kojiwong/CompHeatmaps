@@ -27,12 +27,12 @@ ui <- pageWithSidebar(
       max = 1,
       value = 0.025
     ),
-    colourpicker::colourInput(
+    colourInput(
       "low_col",
       label = "Low Value Colour",
       value = "#F2E7C9"
     ),
-    colourpicker::colourInput(
+    colourInput(
       "high_col",
       label = "High Value Colour",
       value = "#801A86"
