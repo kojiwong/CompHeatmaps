@@ -9,9 +9,9 @@
 
 A large problem in conducting metatranscriptomic analysis on microbial
 communities is dealing with the complexity of the large amount of data
-we are working with. Heatmaps are a useful visualization that illustrate
-the abundance across these samples at a glance. However, getting from
-raw sequence reads to heatmaps is quite a cumbersome process.
+researchers tend to work with. Heatmaps are a useful visualization that
+illustrate the abundance across these samples at a glance. However,
+going from raw sequence reads to heatmaps is quite a cumbersome process.
 
 The goal of CompHeatmaps is to simplify this complex process by easily
 generating heatmaps from raw 16S sequence variants.
@@ -26,8 +26,8 @@ You can install the development version of CompHeatmaps from
 
 ``` r
 install.packages("devtools")
-library("devtools)
-devtools::install_github("kojiwong/CompHeatmaps", build_vignettes=TRUE)
+library("devtools")
+devtools::install_github("kojiwong/CompHeatmaps", build_vignettes = TRUE)
 library("CompHeatmaps")
 ```
 

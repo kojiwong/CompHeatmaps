@@ -76,7 +76,7 @@ server <- function(input, output, session) {
   })
   observeEvent(input$run_button, {
     tryCatch({
-      path <- system.file("data/precomputed/result", package = "CompHeatmaps")
+      path <- system.file("extdata/precomputed/result", package = "CompHeatmaps")
       result <- readRDS(path)
       #result <- CompHeatmaps::preprocess_16s_data(input_dir(), output_dir(), verbose = TRUE)
       table <- CompHeatmaps::create_abundance_table(result)
